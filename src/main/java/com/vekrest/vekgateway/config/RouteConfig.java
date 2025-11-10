@@ -15,10 +15,15 @@ public class RouteConfig {
                 .authorizeExchange(exchange -> exchange
                         .pathMatchers(
                                 "/v3/api-docs/**",
+                                "/vekrest/vekclient/v3/api-docs/**",
+                                "/vekrest/veksecurity/v3/api-docs/**",
                                 "/swagger-ui/**",
-                                "/swagger-ui.html",
-                                "/vekrest/security/v3/api-docs",
-                                "/vekrest/security/login/**")
+                                "/vekrest/vekclient/swagger-ui/**",
+                                "/vekrest/veksecurity/swagger-ui/**",
+
+                                "/vekrest/veksecurity/user/save/**",
+                                "/vekrest/veksecurity/login/**"
+                        )
                         .permitAll()
                         .anyExchange()
                         .authenticated()
