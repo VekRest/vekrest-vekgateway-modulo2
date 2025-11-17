@@ -14,52 +14,12 @@ services:
       - "TZ=America/Sao_Paulo"
     ports:
       - "27017:27017"
-    networks:
-      - vekrest-network
-
-  opensearch:
-    image: opensearchproject/opensearch:2.4.0
-    hostname: opensearch
-    container_name: opensearch
-    environment:
-      - discovery.type=single-node
-      - plugins.security.disabled=true
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    ports:
-      - "9200:9200"
-      - "9600:9600"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      test: [ "CMD", "mongosh", "--eval", "db.adminCommand('ping')" ]
       interval: 10s
-      timeout: 10s
-      retries: 10
-    restart: on-failure
-    networks:
-      - vekrest-network
-
-  graylog:
-    image: graylog/graylog:5.1.5
-    hostname: graylog
-    container_name: graylog
-    depends_on:
-      opensearch:
-        condition: service_healthy
-      mongodb:
-        condition: service_started
-    environment:
-      GRAYLOG_PASSWORD_SECRET: "f62c92ac283e4f1f969ad5e71d4c7b2e11e9bdbf5e193ae7bb4e9b4e1e956e437c98a43cd624c5ea8a2c97b9463f96e8"
-      GRAYLOG_ROOT_PASSWORD_SHA2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
-      GRAYLOG_HTTP_BIND_ADDRESS: "0.0.0.0:9000"
-      GRAYLOG_HTTP_EXTERNAL_URI: "http://localhost:9000/"
-      GRAYLOG_MONGODB_URI: "mongodb://mongodb:27017/graylog"
-      GRAYLOG_ELASTICSEARCH_HOSTS: "http://opensearch:9200"
-    ports:
-      - "9000:9000"
-      - "12201:12201/udp"
-    restart: on-failure
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     networks:
       - vekrest-network
 
@@ -78,6 +38,55 @@ services:
     networks:
       - vekrest-network
 
+  opensearch:
+    image: opensearchproject/opensearch:2.4.0
+    hostname: opensearch
+    container_name: opensearch
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    environment:
+      - discovery.type=single-node
+      - plugins.security.disabled=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+      - "9600:9600"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9200" ]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+    restart: on-failure
+    networks:
+      - vekrest-network
+
+  graylog:
+    image: graylog/graylog:5.1.5
+    hostname: graylog
+    container_name: graylog
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      opensearch:
+        condition: service_healthy
+    environment:
+      GRAYLOG_PASSWORD_SECRET: "f62c92ac283e4f1f969ad5e71d4c7b2e11e9bdbf5e193ae7bb4e9b4e1e956e437c98a43cd624c5ea8a2c97b9463f96e8"
+      GRAYLOG_ROOT_PASSWORD_SHA2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+      GRAYLOG_HTTP_BIND_ADDRESS: "0.0.0.0:9000"
+      GRAYLOG_HTTP_EXTERNAL_URI: "http://localhost:9000/"
+      GRAYLOG_MONGODB_URI: "mongodb://mongodb:27017/graylog"
+      GRAYLOG_ELASTICSEARCH_HOSTS: "http://opensearch:9200"
+    ports:
+      - "9000:9000"
+      - "12201:12201/udp"
+    restart: on-failure
+    networks:
+      - vekrest-network
+
   vekgateway:
     image: vekrest/vekgateway:latest
     hostname: vekgateway
@@ -85,60 +94,57 @@ services:
     ports:
       - "8080:8080"
     environment:
+      SERVER_PORT: 8080
       VEKSECURITY_URI: http://veksecurity:8081
       VEKCLIENT_URI: http://vekclient:8082
-    networks:
-      - vekrest-network
     depends_on:
       mongodb:
-        condition: service_started
+        condition: service_healthy
       opensearch:
         condition: service_healthy
       graylog:
         condition: service_started
       redis:
-        condition: service_started
+        condition: service_healthy
+    networks:
+      - vekrest-network
 
   veksecurity:
     image: vekrest/veksecurity:latest
     hostname: veksecurity
     container_name: veksecurity
-    ports:
-      - "8081:8081"
     environment:
       SERVER_PORT: 8081
       MONGODB_URI: mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000
-    networks:
-      - vekrest-network
     depends_on:
       mongodb:
-        condition: service_started
+        condition: service_healthy
       opensearch:
         condition: service_healthy
       graylog:
         condition: service_started
       redis:
-        condition: service_started
+        condition: service_healthy
+    networks:
+      - vekrest-network
 
   vekclient:
     image: vekrest/vekclient:latest
     hostname: vekclient
     container_name: vekclient
-    ports:
-      - "8082:8082"
     environment:
       SERVER_PORT: 8082
-      REDIS_HOST: localhost
+      REDIS_HOST: redis
       REDIS_PORT: 6379
       MONGODB_URI: mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000
-    networks:
-      - vekrest-network
     depends_on:
       mongodb:
-        condition: service_started
+        condition: service_healthy
       opensearch:
         condition: service_healthy
       graylog:
         condition: service_started
       redis:
-        condition: service_started
+        condition: service_healthy
+    networks:
+      - vekrest-network
