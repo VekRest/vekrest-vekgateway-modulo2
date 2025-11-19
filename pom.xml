@@ -6,29 +6,30 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.5.7</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com.vekrest</groupId>
 	<artifactId>vekgateway</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>v1.0.0</version>
+
 	<name>vekgateway</name>
 	<description>VekMódulo Gateway para centralização de chamadas da API</description>
-	<url/>
+	<url>https://github.com/VekRest/vekrest-vekgateway-modulo2</url>
 	<licenses>
-		<license/>
+		<license>
+			<name>GPL-3.0</name>
+			<url>https://www.gnu.org/licenses/gpl-3.0.en.html</url>
+			<distribution>repo</distribution>
+		</license>
 	</licenses>
 	<developers>
-		<developer/>
+		<developer>
+			<id>devVekRest</id>
+			<name>Victor Novaes Cardoso (Vek)</name>
+			<email>victorncardoso1912@gmail.com</email>
+		</developer>
 	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
-	<properties>
-		<java.version>17</java.version>
-	</properties>
+
 	<dependencies>
 		<!-- CLOUD GATEWAY -->
 		<dependency>
@@ -88,4 +89,19 @@
 		</plugins>
 	</build>
 
+	<properties>
+		<java.version>17</java.version>
+
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.projectKey>vekgateway</sonar.projectKey>
+		<sonar.organization>vekrest</sonar.organization>
+	</properties>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub Packages</name>
+			<url>https://maven.pkg.github.com/VekRest/vekrest-vekgateway-modulo2</url>
+		</repository>
+	</distributionManagement>
 </project>
