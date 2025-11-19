@@ -11,6 +11,93 @@ Partes do Módulo 2:
 
 ---
 
+# 1.✨ Imagem Docker (DockerHub)
+
+> A imagem desta aplicação é atualizada a cada nova tag ou pull request na [branch main](https://github.com/VekRest/vekrest-vekgateway-modulo2/tree/main)
+
+> Link da imagem no DockerHub: [vek03/vekrest-vekgateway:latest](https://hub.docker.com/repository/docker/vek03/vekrest-vekgateway)
+
+---
+
+## 1.1🧩 Containers necessários para rodar a aplicação:
+
+| Container | Imagem | Link                                                                                                                                           | 
+|---|---|------------------------------------------------------------------------------------------------------------------------------------------------|
+| MongoDB | `mongo:latest` | https://hub.docker.com/_/mongo                                                                                                                 |
+| Redis | `redis:latest` | https://hub.docker.com/_/redis                                                                                                                 |
+| OpenSearch | `opensearchproject/opensearch:2.4.0` | https://hub.docker.com/layers/opensearchproject/opensearch/2.4.0/images/sha256-c8681472b70d46e7de61fe770d288a972f84b3f122f3c74ca06ea525264b6fd5 |
+| Graylog | `graylog/graylog:5.1.5` | https://hub.docker.com/layers/graylog/graylog/5.1.5/images/sha256-3b6967572e88731eacfa661e6d7ca41da3e259bc5eb041e58fb10e4deb823dcb             |
+| VekClient | `vek03/vekrest-vekclient:latest` | https://hub.docker.com/repository/docker/vek03/vekrest-vekclient                                                                                 |
+| VekSecurity | `vek03/vekrest-veksecurity:latest` | https://hub.docker.com/repository/docker/vek03/vekrest-veksecurity                                                                               |
+
+---
+
+## 1.2 ⚙ Variáveis de ambiente necessárias para rodar o container:
+
+| Variável                  | Descrição                        | Exemplo                                                                                 |
+|---------------------------|----------------------------------|-----------------------------------------------------------------------------------------|
+| `SERVER_PORT`             | Porta onde a aplicação irá rodar | `8080`                                                                                  |
+| `SECRET_KEY`              | Chave do JWT                     | `vekrest!Afwedfuihosedwfbgri8uoef`                                                      |
+| `VEKSECURITY_URI`         | URI do container de VekSecurity  | `http://veksecurity:8081`                                                                                  |
+| `VEKCLIENT_URI`           | URI do container de VekClient    | `http://vekclient:8082` |
+
+---
+
+## 1.3🐳 Como rodar o container
+
+1️⃣ Para baixar a imagem do Docker Hub:
+```bash
+docker pull vek03/vekrest-vekgateway:latest
+```
+
+2️⃣ Para rodar o container localmente:
+```bash
+docker run -d \
+  --name vekgateway \
+  -e SERVER_PORT=8080 \
+  -e SECRET_KEY=vekrest!Afwedfuihosedwfbgri8uoef \
+  -e VEKSECURITY_URI=http://veksecurity:8081 \
+  -e VEKCLIENT_URI=http://vekclient:8082 \
+  -p 8080:8080 \
+  vek03/vekrest-vekgateway:latest
+```
+
+3️⃣ Alternativamente, você pode adicionar o serviço no seu docker-compose.yml local, descomentando ou adicionando o seguinte trecho:
+```bash
+services:
+    vekgateway:
+    image: vekrest/vekgateway:latest
+    hostname: vekgateway
+    container_name: vekgateway
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_PORT: 8080
+      SECRET_KEY: "vekrest!Afwedfuihosedwfbgri8uoef"
+      VEKSECURITY_URI: http://veksecurity:8081
+      VEKCLIENT_URI: http://vekclient:8082
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      opensearch:
+        condition: service_healthy
+      graylog:
+        condition: service_started
+      redis:
+        condition: service_healthy
+      veksecurity:
+        condition: service_started
+      vekclient:
+        condition: service_started
+```
+
+4️⃣ Depois de adicionar o serviço em docker-compose.yml, suba os containers:
+```bash
+docker-compose up -d
+```
+
+---
+
 ## 📘 Estrutura do Projeto
 
 ```
