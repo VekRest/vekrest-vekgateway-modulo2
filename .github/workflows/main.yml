@@ -3,9 +3,6 @@ name: VekGateway CI/CD Workflow
 on:
   push:
     tags: ['v*', 'v*.*', 'v*.*.*']
-    
-  pull_request:
-    branches: ['main']
 
 env:
   REGISTRY: ghcr.io
@@ -107,6 +104,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set IMAGE_TAG
+        id: vars
+        run: |
+          if [[ "${{ github.ref_name }}" == v* ]]; then
+          echo "IMAGE_TAG=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          else
+          echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_OUTPUT
+          fi
+
       - name: Login in DockerHub
         uses: docker/login-action@v3
         with:
@@ -124,7 +130,7 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USER }}/vekrest-vekgateway:latest
-            ${{ secrets.DOCKERHUB_USER }}/vekrest-vekgateway:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USER }}/vekrest-vekgateway:${{ steps.vars.outputs.IMAGE_TAG }}
 
   github-packages-maven-publish:
     name: Publish Maven Image (Github Pages)
