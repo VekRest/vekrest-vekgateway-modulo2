@@ -1,8 +1,6 @@
 # 🧬 Projeto VekRest - VekGateway - Módulo 2
 
-Este é o **gateway** do projeto VekRest, centralizando o acesso às demais aplicações. Este projeto utiliza conteinerização em **Docker**, build **Maven** e framework **Spring Boot Java**.  
-
-Ele foi desenvolvido como a primeira parte entrega do 2° módulo do projeto completo.
+Gateway VekRest: centraliza acessos via Spring Boot com Docker e Maven. **Módulo 2 / Gateway**.
 
 > ATENÇÃO: VÁ ATÉ OS REPOSITÓRIOS DAS PARTES DO MÓDULO 2 E SIGA AS INSTRUÇÕES DE EXECUÇÃO DO README DE CADA APLICAÇÃO PARA RODAR A APLICAÇÃO COMPLETA!
 
