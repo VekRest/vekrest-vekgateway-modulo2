@@ -107,7 +107,7 @@ jobs:
       - name: Set IMAGE_TAG
         id: vars
         run: |
-          if [[ "${{ github.ref_name }}" != "main" && "${{ github.ref_name }}" != "develop" ]]; then
+          if [[ "${{ github.ref_name }}" != "main" && "${{ github.ref_name }}" != "develop" && "${{ github.ref_name }}" != "dependabot/*" ]]; then
           echo "IMAGE_TAG=${{ github.ref_name }}" >> $GITHUB_OUTPUT
           else
           echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_OUTPUT
