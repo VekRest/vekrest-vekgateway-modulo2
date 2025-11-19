@@ -1,4 +1,4 @@
-name: VekClient CI/CD Workflow
+name: VekGateway CI/CD Workflow
 
 on:
   push:
