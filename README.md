@@ -4,10 +4,16 @@ Este é o **gateway** do projeto VekRest, centralizando o acesso às demais apli
 
 Ele foi desenvolvido como a primeira parte entrega do 2° módulo do projeto completo.
 
-Partes do Módulo 2:
-- VekGateway - Gateway (este projeto) - Centraliza o acesso às outras aplicações
-- VekClient - Aplicação de [CRUD de Pessoa](https://github.com/VekRest/vekrest-vekclient-modulo1)
-- VekSecurity - Aplicação de [Login e Segurança](https://github.com/VekRest/vekrest-veksecurity-modulo2.1)
+> ATENÇÃO: VÁ ATÉ OS REPOSITÓRIOS DAS PARTES DO MÓDULO 2 E SIGA AS INSTRUÇÕES DE EXECUÇÃO DO README DE CADA APLICAÇÃO PARA RODAR A APLICAÇÃO COMPLETA!
+
+## 🧩 PARTES DO MÓDULO 2
+| Aplicação      | Descrição                                      | Link                              |
+|----------------|------------------------------------------------|-----------------------------------|
+| VekGateway     | Gateway (este projeto) - Centraliza o acesso às outras aplicações | Este Repositório |
+| VekClient      | Aplicação de CRUD de Pessoa                    | [Repositório VekClient Módulo 1](https://github.com/VekRest/vekrest-vekclient-modulo1) |
+| VekSecurity    | Aplicação de Login e Segurança                 | [Repositório VekSecurity Módulo 2.1](https://github.com/VekRest/vekrest-veksecurity-modulo2.1) |
+
+> Este projeto depende das outras duas aplicações (VekClient e VekSecurity) para funcionar corretamente.
 
 ---
 
@@ -19,7 +25,7 @@ Partes do Módulo 2:
 
 ---
 
-## 1.1🧩 Containers necessários para rodar a aplicação:
+## 1.1 🧩 Containers necessários para rodar a aplicação:
 
 | Container | Imagem | Link                                                                                                                                           | 
 |---|---|------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -43,7 +49,7 @@ Partes do Módulo 2:
 
 ---
 
-## 1.3🐳 Como rodar o container
+## 1.3 🐳 Como rodar o container
 
 1️⃣ Para baixar a imagem do Docker Hub:
 ```bash
