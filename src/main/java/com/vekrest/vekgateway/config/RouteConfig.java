@@ -17,6 +17,7 @@ public class RouteConfig {
                                 "/v3/api-docs/**",
                                 "/vekrest/vekclient/v3/api-docs/**",
                                 "/vekrest/veksecurity/v3/api-docs/**",
+
                                 "/swagger-ui/**",
                                 "/vekrest/vekclient/swagger-ui/**",
                                 "/vekrest/veksecurity/swagger-ui/**",
