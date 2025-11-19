@@ -1,6 +1,6 @@
 @echo off
 
-set MODULE=vekclient
+set MODULE=vekgateway
 
 echo ===========================
 echo       DOCKER DEPLOY

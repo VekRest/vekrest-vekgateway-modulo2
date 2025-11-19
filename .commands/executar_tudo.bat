@@ -1,11 +1,12 @@
 @echo off
 
+set MODULE=vekgateway
+
 echo ==========================================
 echo CONFIGURACOES INICIAIS
 echo ==========================================
 echo.
 
-set MODULE=vekclient
 echo Modulo definido: %MODULE%
 echo.
 
