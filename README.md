@@ -70,7 +70,7 @@ docker run -d \
 ```bash
 services:
     vekgateway:
-    image: vekrest/vekgateway:latest
+    image: vek03/vekrest-vekgateway:latest
     hostname: vekgateway
     container_name: vekgateway
     ports:
@@ -152,6 +152,19 @@ Inclua o Dockerfile necessário para a construção da aplicação.
 - **SonarQube** → Qualidade
 - **Github Actions** → CI/CD automatizado
 - **.bat** → Scripts para automatizar processos no Windows
+
+---
+
+## 📌 Status do Projeto
+> 🚀 Release [v1.0.0](https://github.com/VekRest/vekrest-vekgateway-modulo2/tree/v1.0.0) - Primeira versão
+
+[//]: # (- 🚧 Em desenvolvimento – Release v2.0-iot-alpha)
+
+---
+
+## 📜 Licença
+> Este projeto é distribuído sob a licença GPL-3.0. Consulte o arquivo [LICENCE](LICENSE.txt)
+para mais detalhes.
 
 ---
 
