@@ -118,6 +118,7 @@ docker-compose up -d
 ├── 📄 docker-compose.yml                       ← Configuração dos containers utilizados
 ├── 📄 Dockerfile                               ← Configuração para build e deploy no Docker
 ├── 📄 LICENCE.txt                              ← Arquivo de Licença GPL-3.0
+├── 📄 pom.xml                                  ← Arquivo de Build do Maven
 ├── 📄 README.md                                ← Este arquivo de documentação
 
 ````
