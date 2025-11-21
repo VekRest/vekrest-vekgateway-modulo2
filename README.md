@@ -172,14 +172,6 @@ para mais detalhes.
 
 ---
 
-## ✨ Deploy (DockerHub)
-
-> A imagem desta aplicação é atualizada a cada atualização na [branch main](https://github.com/VekRest/vekrest-vekgateway-modulo2/tree/main)
-
-> Link da imagem no DockerHub: [vek03/vekrest-vekgateway:latest](https://hub.docker.com/repository/docker/vek03/vekrest-vekgateway)
-
----
-
 ## ✅ Qualidade (SonarQube)
 
 > Este projeto tem qualidade analisada pelo SonarQube Cloud. Verifique nos badges!
