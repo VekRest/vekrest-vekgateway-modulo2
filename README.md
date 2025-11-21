@@ -148,6 +148,8 @@ Inclua o Dockerfile necessário para a construção da aplicação.
 - **Maven** → Build
 - **Docker** → Containers e virtualização
 - **Docker Hub** → Repositório de imagens Docker
+- **Redis** → Cache
+- **OpenSearch e Graylog** → Logs da Aplicação
 - **Swagger** → Documentação da API
 - **SonarQube** → Qualidade
 - **Github Actions** → CI/CD automatizado
