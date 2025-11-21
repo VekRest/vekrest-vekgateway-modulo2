@@ -12,6 +12,8 @@ Gateway VekRest: centraliza acessos via Spring Boot com Docker e Maven. **Módul
 | VekSecurity    | Aplicação de Login e Segurança                 | [Repositório VekSecurity Módulo 2.1](https://github.com/VekRest/vekrest-veksecurity-modulo2.1) |
 
 > Este projeto depende das outras duas aplicações (VekClient e VekSecurity) para funcionar corretamente.
+> Faça o build no docker das outras aplicações ou utilize as imagens do DockerHub para rodar os containers necessários.
+> Por último, suba os containers deste projeto (VekGateway) para completar o ambiente.
 
 ---
 
