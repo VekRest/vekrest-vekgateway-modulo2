@@ -99,14 +99,6 @@ services:
       VEKSECURITY_URI: http://veksecurity:8081
       VEKCLIENT_URI: http://vekclient:8082
     depends_on:
-      mongodb:
-        condition: service_healthy
-      opensearch:
-        condition: service_healthy
-      graylog:
-        condition: service_started
-      redis:
-        condition: service_healthy
       veksecurity:
         condition: service_started
       vekclient:
@@ -122,6 +114,8 @@ services:
       SERVER_PORT: 8081
       SECRET_KEY: "vekrest!A$9zLq#2vNf@eR6tYpWmZcXbGdQh"
       MONGODB_URI: mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000
+      GRAYLOG_HOST: graylog
+      GRAYLOG_PORT: 12201
     depends_on:
       mongodb:
         condition: service_healthy
@@ -129,8 +123,6 @@ services:
         condition: service_healthy
       graylog:
         condition: service_started
-      redis:
-        condition: service_healthy
     networks:
       - vekrest-network
 
@@ -143,6 +135,8 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       MONGODB_URI: mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000
+      GRAYLOG_HOST: graylog
+      GRAYLOG_PORT: 12201
     depends_on:
       mongodb:
         condition: service_healthy
