@@ -4,7 +4,6 @@
       <settings>
         <option name="imageTag" value="vekrest/vekgateway:latest" />
         <option name="buildOnly" value="true" />
-        <option name="command" value="docker build -t vekrest/vekclient:latest ." />
         <option name="containerName" value="" />
         <option name="showCommandPreview" value="true" />
         <option name="sourceFilePath" value="Dockerfile" />
