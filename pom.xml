@@ -2,12 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.7</version>
-		<relativePath/>
-	</parent>
+
 	<groupId>com.vekrest</groupId>
 	<artifactId>vekgateway</artifactId>
 	<version>v1.0.0</version>
@@ -15,6 +10,14 @@
 	<name>vekgateway</name>
 	<description>VekMódulo Gateway para centralização de chamadas da API</description>
 	<url>https://github.com/VekRest/vekrest-vekgateway-modulo2</url>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.5.7</version>
+		<relativePath/>
+	</parent>
+
 	<licenses>
 		<license>
 			<name>GPL-3.0</name>
