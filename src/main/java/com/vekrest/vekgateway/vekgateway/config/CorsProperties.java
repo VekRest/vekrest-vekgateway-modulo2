@@ -1,4 +1,4 @@
-package com.vekrest.vekgateway.config;
+package com.vekrest.vekgateway.vekgateway.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

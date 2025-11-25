@@ -1,6 +1,6 @@
 package com.vekrest.vekgateway;
 
-import com.vekrest.vekgateway.config.JwtDecoderConfig;
+import com.vekrest.vekgateway.vekgateway.config.JwtDecoderConfig;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;

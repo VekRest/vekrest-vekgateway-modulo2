@@ -1,4 +1,4 @@
-package com.vekrest.vekgateway;
+package com.vekrest.vekgateway.vekgateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
