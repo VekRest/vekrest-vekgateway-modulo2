@@ -21,7 +21,7 @@ Gateway VekRest: centraliza acessos via Spring Boot com Docker e Maven. **Módul
 
 > A imagem desta aplicação é atualizada a cada nova tag ou pull request na [branch main](https://github.com/VekRest/vekrest-vekgateway-modulo2/tree/main)
 
-> Link da imagem no DockerHub: [vek03/vekrest-vekgateway:latest](https://hub.docker.com/repository/docker/vek03/vekrest-vekgateway)
+> Link da imagem no DockerHub: [vek03/vekrest-vekgateway:latest](https://hub.docker.com/r/vek03/vekrest-vekgateway)
 
 ---
 
@@ -33,8 +33,8 @@ Gateway VekRest: centraliza acessos via Spring Boot com Docker e Maven. **Módul
 | Redis | `redis:latest` | https://hub.docker.com/_/redis                                                                                                                 |
 | OpenSearch | `opensearchproject/opensearch:2.4.0` | https://hub.docker.com/layers/opensearchproject/opensearch/2.4.0/images/sha256-c8681472b70d46e7de61fe770d288a972f84b3f122f3c74ca06ea525264b6fd5 |
 | Graylog | `graylog/graylog:5.1.5` | https://hub.docker.com/layers/graylog/graylog/5.1.5/images/sha256-3b6967572e88731eacfa661e6d7ca41da3e259bc5eb041e58fb10e4deb823dcb             |
-| VekClient | `vek03/vekrest-vekclient:latest` | https://hub.docker.com/repository/docker/vek03/vekrest-vekclient                                                                                 |
-| VekSecurity | `vek03/vekrest-veksecurity:latest` | https://hub.docker.com/repository/docker/vek03/vekrest-veksecurity                                                                               |
+| VekClient | `vek03/vekrest-vekclient:latest` | https://hub.docker.com/r/vek03/vekrest-vekclient                                                                                 |
+| VekSecurity | `vek03/vekrest-veksecurity:latest` | https://hub.docker.com/r/vek03/vekrest-veksecurity                                                                               |
 
 ---
 
@@ -278,7 +278,7 @@ git push origin <version>
 
 ## Postman Collection
 
-> Link para download da coleção Postman utilizada nos testes da API: [Postman Collection VekRest](https://web.postman.co/workspace/My-Workspace~e702bcc2-18e9-41e7-86d7-21df963c99df/folder/33703402-f59218e7-8804-436c-8866-2693c75b9eb6?action=share&source=copy-link&creator=33703402&ctx=documentation)
+> Link para download da coleção Postman utilizada nos testes da API: [Postman Collection VekRest](https://www.postman.com/aviation-pilot-88658184/workspace/my-workspace/folder/33703402-dad9baf5-9c1b-4010-a4c7-7ace385191fd?action=share&source=copy-link&creator=33703402&ctx=documentation)
 
 > Alternativamente, você pode utilizar o Swagger UI para testar a API:
 [Swagger UI VekRest VekGateway Módulo 2](http://localhost:8080/swagger-ui/index.html) (rodando localmente)
