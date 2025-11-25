@@ -1,4 +1,4 @@
-package com.vekrest.vekgateway;
+package com.vekrest.vekgateway.vekgateway;
 
 import com.vekrest.vekgateway.vekgateway.config.JwtDecoderConfig;
 import org.junit.jupiter.api.Test;
