@@ -273,6 +273,12 @@ services:
 #    environment:
 #      SERVER_PORT: 8083
 #      KAFKA_BROKERS: kafka1:19092, kafka2:19093, kafka3:19094
+#      VEKREST_VEKSECURITY_API_ENABLED: "true"
+#      VEKREST_VEKSECURITY_API_URL: http://vekgateway:8080
+#      VEKREST_VEKSECURITY_API_USERNAME: "sistema"
+#      VEKREST_VEKSECURITY_API_PASSWORD: "123456"
+#      REDIS_HOST: redis
+#      REDIS_PORT: 6379
 #      GRAYLOG_HOST: graylog
 #      GRAYLOG_PORT: 12201
 #    depends_on:
@@ -292,7 +298,7 @@ services:
 #        condition: service_healthy
 #    networks:
 #      - vekrest-network
-
+#
 #  vekconsumer:
 #    image: vekrest/vekconsumer:latest
 #    hostname: vekconsumer
@@ -318,14 +324,42 @@ services:
 #        condition: service_healthy
 #    networks:
 #      - vekrest-network
-
+#
+#  vekconsumerapi:
+#    image: vekrest/vekconsumerapi:latest
+#    hostname: vekconsumerapi
+#    container_name: vekconsumerapi
+#    environment:
+#      KAFKA_BROKERS: kafka1:19092, kafka2:19093, kafka3:19094
+#      VEKREST_VEKCLIENT_API_ENABLED: "true"
+#      VEKREST_VEKCLIENT_API_URL: http://vekgateway:8080
+#      GRAYLOG_HOST: graylog
+#      GRAYLOG_PORT: 12201
+#    depends_on:
+#      mongodb:
+#        condition: service_healthy
+#      opensearch:
+#        condition: service_healthy
+#      graylog:
+#        condition: service_started
+#      zookeeper:
+#        condition: service_healthy
+#      kafka1:
+#        condition: service_healthy
+#      kafka2:
+#        condition: service_healthy
+#      kafka3:
+#        condition: service_healthy
+#    networks:
+#      - vekrest-network
+#
 #  veklambda:
 #    image: vekrest/veklambda:latest
 #    hostname: veklambda
 #    container_name: veklambda
 #    restart: unless-stopped
 #    environment:
-#      KAFKA_BROKERS: kafka1:19092
+#      KAFKA_BROKERS: kafka1:19092, kafka2:19093, kafka3:19094
 #      KAFKA_REPLICAS: 1
 #      KAFKA_PARTITIONS: 3
 #      GRAYLOG_HOST: graylog
@@ -340,6 +374,10 @@ services:
 #      zookeeper:
 #        condition: service_healthy
 #      kafka1:
+#        condition: service_healthy
+#      kafka2:
+#        condition: service_healthy
+#      kafka3:
 #        condition: service_healthy
 #    networks:
 #      - vekrest-network
