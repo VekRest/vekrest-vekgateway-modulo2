@@ -199,7 +199,7 @@ services:
       - vekrest-network
 
   vekgateway:
-    image: vekrest/vekgateway:latest
+    image: vek03/vekrest-vekgateway:latest
     hostname: vekgateway
     container_name: vekgateway
     restart: unless-stopped
@@ -225,7 +225,7 @@ services:
       - vekrest-network
 
   veksecurity:
-    image: vekrest/veksecurity:latest
+    image: vek03/vekrest-veksecurity:latest
     hostname: veksecurity
     container_name: veksecurity
     restart: unless-stopped
@@ -252,7 +252,7 @@ services:
       - vekrest-network
 
   vekclient:
-    image: vekrest/vekclient:latest
+    image: vek03/vekrest-vekclient:latest
     hostname: vekclient
     container_name: vekclient
     restart: unless-stopped
@@ -282,7 +282,7 @@ services:
       - vekrest-network
 
   vekproducer:
-    image: vekrest/vekproducer:latest
+    image: vek03/vekrest-vekproducer:latest
     hostname: vekproducer
     container_name: vekproducer
     restart: unless-stopped
