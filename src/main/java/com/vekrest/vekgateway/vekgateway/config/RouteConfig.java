@@ -25,12 +25,18 @@ public class RouteConfig {
                                 "/vekrest/veksecurity/v1/user/save/**",
                                 "/vekrest/veksecurity/v1/login/**",
 
-                                "/actuator/**"
+                                "/actuator/**",
+                                "/vekrest/veksecurity/actuator/**",
+                                "/vekrest/vekclient/actuator/**"
                         )
                         .permitAll()
                         .anyExchange()
                         .authenticated()
-                ).oauth2ResourceServer(oauth -> oauth.jwt())
+                ).oauth2ResourceServer(oauth -> oauth.jwt(
+                        jwtConfig -> {
+                            // JWT configuration can be customized here if needed
+                        }
+                ))
                 .build();
     }
 
