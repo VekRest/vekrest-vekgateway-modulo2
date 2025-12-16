@@ -23,7 +23,9 @@ public class RouteConfig {
                                 "/vekrest/veksecurity/swagger-ui/**",
 
                                 "/vekrest/veksecurity/v1/user/save/**",
-                                "/vekrest/veksecurity/v1/login/**"
+                                "/vekrest/veksecurity/v1/login/**",
+
+                                "/actuator/**"
                         )
                         .permitAll()
                         .anyExchange()
