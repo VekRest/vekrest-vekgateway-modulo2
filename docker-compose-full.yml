@@ -90,71 +90,6 @@ services:
     networks:
       - vekrest-network
 
-  vekgateway:
-    image: vek03/vekrest-vekgateway:latest
-    hostname: vekgateway
-    container_name: vekgateway
-    restart: unless-stopped
-    ports:
-      - "8080:8080"
-    environment:
-      SERVER_PORT: 8080
-      SECRET_KEY: "vekrest!A$9zLq#2vNf@eR6tYpWmZcXbGdQh"
-      VEKSECURITY_URI: http://veksecurity:8081
-      VEKCLIENT_URI: http://vekclient:8082
-    depends_on:
-      veksecurity:
-        condition: service_started
-      vekclient:
-        condition: service_started
-    networks:
-      - vekrest-network
-
-  veksecurity:
-    image: vek03/vekrest-veksecurity:latest
-    hostname: veksecurity
-    container_name: veksecurity
-    restart: unless-stopped
-    environment:
-      SERVER_PORT: 8081
-      SECRET_KEY: "vekrest!A$9zLq#2vNf@eR6tYpWmZcXbGdQh"
-      MONGODB_URI: mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000
-      GRAYLOG_HOST: graylog
-      GRAYLOG_PORT: 12201
-    depends_on:
-      mongodb:
-        condition: service_healthy
-      opensearch:
-        condition: service_healthy
-      graylog:
-        condition: service_started
-    networks:
-      - vekrest-network
-
-  vekclient:
-    image: vek03/vekrest-vekclient:latest
-    hostname: vekclient
-    container_name: vekclient
-    restart: unless-stopped
-    environment:
-      SERVER_PORT: 8082
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      MONGODB_URI: mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000
-      GRAYLOG_HOST: graylog
-      GRAYLOG_PORT: 12201
-    depends_on:
-      mongodb:
-        condition: service_healthy
-      opensearch:
-        condition: service_healthy
-      graylog:
-        condition: service_started
-      redis:
-        condition: service_healthy
-    networks:
-      - vekrest-network
-
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
     hostname: zookeeper
@@ -166,7 +101,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     healthcheck:
-      test: ["CMD", "nc", "-z", "localhost", "2181"]
+      test: [ "CMD", "nc", "-z", "localhost", "2181" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -196,7 +131,7 @@ services:
       zookeeper:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "nc", "-z", "localhost", "9092"]
+      test: [ "CMD", "nc", "-z", "localhost", "9092" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -263,8 +198,91 @@ services:
     networks:
       - vekrest-network
 
+  vekgateway:
+    image: vekrest/vekgateway:latest
+    hostname: vekgateway
+    container_name: vekgateway
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_PORT: 8080
+      SECRET_KEY: "vekrest!A$9zLq#2vNf@eR6tYpWmZcXbGdQh"
+      VEKSECURITY_URI: http://veksecurity:8081
+      VEKCLIENT_URI: http://vekclient:8082
+    depends_on:
+      veksecurity:
+        condition: service_started
+      vekclient:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://vekgateway:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    networks:
+      - vekrest-network
+
+  veksecurity:
+    image: vekrest/veksecurity:latest
+    hostname: veksecurity
+    container_name: veksecurity
+    restart: unless-stopped
+    environment:
+      SERVER_PORT: 8081
+      SECRET_KEY: "vekrest!A$9zLq#2vNf@eR6tYpWmZcXbGdQh"
+      MONGODB_URI: mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000
+      GRAYLOG_HOST: graylog
+      GRAYLOG_PORT: 12201
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      opensearch:
+        condition: service_healthy
+      graylog:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://veksecurity:8081/vekrest/veksecurity/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    networks:
+      - vekrest-network
+
+  vekclient:
+    image: vekrest/vekclient:latest
+    hostname: vekclient
+    container_name: vekclient
+    restart: unless-stopped
+    environment:
+      SERVER_PORT: 8082
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      MONGODB_URI: mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000
+      GRAYLOG_HOST: graylog
+      GRAYLOG_PORT: 12201
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      opensearch:
+        condition: service_healthy
+      graylog:
+        condition: service_started
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://vekclient:8082/vekrest/vekclient/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    networks:
+      - vekrest-network
+
   vekproducer:
-    image: vek03/vekrest-vekproducer:latest
+    image: vekrest/vekproducer:latest
     hostname: vekproducer
     container_name: vekproducer
     restart: unless-stopped
@@ -296,6 +314,12 @@ services:
         condition: service_healthy
       kafka3:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8083/vekrest/vekproducer/actuator/health || exit 1"]
+      interval: 5s
+      timeout: 15s
+      retries: 10
+      start_period: 30s
     networks:
       - vekrest-network
 
@@ -321,6 +345,8 @@ services:
       kafka2:
         condition: service_healthy
       kafka3:
+        condition: service_healthy
+      vekproducer:
         condition: service_healthy
     networks:
       - vekrest-network
@@ -350,6 +376,8 @@ services:
         condition: service_healthy
       kafka3:
         condition: service_healthy
+      vekproducer:
+        condition: service_healthy
     networks:
       - vekrest-network
 
@@ -378,6 +406,8 @@ services:
       kafka2:
         condition: service_healthy
       kafka3:
+        condition: service_healthy
+      vekproducer:
         condition: service_healthy
     networks:
       - vekrest-network
