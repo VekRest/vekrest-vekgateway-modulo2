@@ -12,7 +12,9 @@ Gateway VekRest: centraliza acessos via Spring Boot com Docker e Maven. **Módul
 | VekSecurity    | Aplicação de Login e Segurança                 | [Repositório VekSecurity Módulo 2.1](https://github.com/VekRest/vekrest-veksecurity-modulo2.1) |
 
 > Este projeto depende das outras duas aplicações (VekClient e VekSecurity) para funcionar corretamente.
+
 > Faça o build no docker das outras aplicações ou utilize as imagens do DockerHub para rodar os containers necessários.
+
 > Por último, suba os containers deste projeto (VekGateway) para completar o ambiente.
 
 ---
@@ -95,101 +97,18 @@ services:
         condition: service_started
       vekclient:
         condition: service_started
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1" ]
+      interval: 5s
+      timeout: 15s
+      retries: 10
+      start_period: 30s
 ```
 
 4️⃣ Depois de adicionar o serviço em docker-compose.yml, suba os containers:
 ```bash
 docker-compose up -d
 ```
-
----
-
-## 📘 Estrutura do Projeto
-
-```
-
-📂 vekrest-vekgateway-modulo2/
-├── 📁 .commands                                ← Pasta de comandos .bat para automatizar na execução/build
-├── 📁 .github                                  ← Pasta de configuração da esteira CI/CD do Github Actions
-├── 📁 .run                                     ← Pasta de configurações da IDE para facilitar execução local
-├── 📁 src                                      ← Módulo principal da aplicação, construído com dependências do Spring
-    ├── 📁 [...]/java                           ← Pasta princípal do projeto (App)
-            ├── 📁 configuration/               ← Arquivos de Injeção de Dependência (@Bean) e Cors
-                📄 VekgatewayApplication.java   ← Classe principal do Spring Boot
-    ├── 📁 [...]/resources                      ← Variáveis de ambiente
-├── 📄 docker-compose.yml                       ← Configuração dos containers utilizados
-├── 📄 Dockerfile                               ← Configuração para build e deploy no Docker
-├── 📄 LICENCE.txt                              ← Arquivo de Licença GPL-3.0
-├── 📄 pom.xml                                  ← Arquivo de Build do Maven
-├── 📄 README.md                                ← Este arquivo de documentação
-
-````
-
----
-
-## ⚙️ Objetivo
-
-Módulo 2
-Crie uma API REST de Login com controle de acesso por usuário e senha.
-Requisitos:
-
-Ao enviar um usuário e senha válidos, o sistema deve retornar, através do endpoint /login, um token de autenticação (Bearer Token).
-
-Crie um API Gateway e garanta que sua aplicação de Login só possa ser acessada através de uma rota no Gateway.
-
-O container da aplicação de Login não deve expor sua porta diretamente (configure o Docker adequadamente).
-
-Inclua o Dockerfile necessário para a construção da aplicação.
-
----
-
-## 🧩 Tecnologias Utilizadas
-
-- **Spring Boot** → Framework Back-End
-- **Java** → Linguagem de programação
-- **Maven** → Build
-- **Docker** → Containers e virtualização
-- **Docker Hub** → Repositório de imagens Docker
-- **Redis** → Cache
-- **OpenSearch e Graylog** → Logs da Aplicação
-- **Swagger** → Documentação da API
-- **SonarQube** → Qualidade
-- **Github Actions** → CI/CD automatizado
-- **.bat** → Scripts para automatizar processos no Windows
-
----
-
-## 📌 Status do Projeto
-> 🚀 Release [v1.0.0](https://github.com/VekRest/vekrest-vekgateway-modulo2/tree/v1.0.0) - Primeira versão
-
-[//]: # (- 🚧 Em desenvolvimento – Release v2.0-iot-alpha)
-
----
-
-## 📜 Licença
-> Este projeto é distribuído sob a licença GPL-3.0. Consulte o arquivo [LICENCE](LICENSE.txt)
-para mais detalhes.
-
----
-
-## ✅ Qualidade (SonarQube)
-
-> Este projeto tem qualidade analisada pelo SonarQube Cloud. Verifique nos badges!
-
-[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-dark.svg)](https://sonarcloud.io/summary/new_code?id=vekgateway)
-[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=vekgateway&token=91e35387b26bada86e98cb44f7843302e4ac0713)](https://sonarcloud.io/summary/new_code?id=vekgateway)
-
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vekgateway&metric=alert_status&token=91e35387b26bada86e98cb44f7843302e4ac0713)](https://sonarcloud.io/summary/new_code?id=vekgateway)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=vekgateway&metric=bugs&token=91e35387b26bada86e98cb44f7843302e4ac0713)](https://sonarcloud.io/summary/new_code?id=vekgateway)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=vekgateway&metric=code_smells&token=91e35387b26bada86e98cb44f7843302e4ac0713)](https://sonarcloud.io/summary/new_code?id=vekgateway)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=vekgateway&metric=coverage&token=91e35387b26bada86e98cb44f7843302e4ac0713)](https://sonarcloud.io/summary/new_code?id=vekgateway)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=vekgateway&metric=duplicated_lines_density&token=91e35387b26bada86e98cb44f7843302e4ac0713)](https://sonarcloud.io/summary/new_code?id=vekgateway)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=vekgateway&metric=ncloc&token=91e35387b26bada86e98cb44f7843302e4ac0713)](https://sonarcloud.io/summary/new_code?id=vekgateway)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=vekgateway&metric=reliability_rating&token=91e35387b26bada86e98cb44f7843302e4ac0713)](https://sonarcloud.io/summary/new_code?id=vekgateway)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=vekgateway&metric=security_rating&token=91e35387b26bada86e98cb44f7843302e4ac0713)](https://sonarcloud.io/summary/new_code?id=vekgateway)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=vekgateway&metric=sqale_index&token=91e35387b26bada86e98cb44f7843302e4ac0713)](https://sonarcloud.io/summary/new_code?id=vekgateway)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=vekgateway&metric=sqale_rating&token=91e35387b26bada86e98cb44f7843302e4ac0713)](https://sonarcloud.io/summary/new_code?id=vekgateway)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=vekgateway&metric=vulnerabilities&token=91e35387b26bada86e98cb44f7843302e4ac0713)](https://sonarcloud.io/summary/new_code?id=vekgateway)
 
 ---
 
@@ -209,9 +128,7 @@ cd vekrest-vekgateway-modulo2
 # Suba os containers necessários (MongoDB, Redis, OpenSearch, Graylog)
 docker-compose up -d
 
-# Agora abra o projeto na sua IDE (IntelliJ, Eclipse, VSCode, etc) e rode a aplicação Spring Boot
-# Ou, se preferir, rode via terminal com properties-local:
-mvn spring-boot:run -pl spring -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=local"
+# Rode o projeto via Maven
 ```
 
 ### 3️⃣ (Opcional) Alternativamente, se quiser rodar via container localmente:
@@ -228,7 +145,6 @@ docker-compose up -d
 
 > Ou execute o script .bat (executar_tudo.bat) na pasta .commands para automatizar o processo.
 
-
 > A API Gateway VekGateway fica disponível na porta 8080 do [Localhost](http://localhost:8080) ao rodar localmente via IDE.
 
 ### 4️⃣ (Opcional) Caso deseje, pode rodar o SonarQube localmente
@@ -240,21 +156,33 @@ mvn clean install sonar:sonar -Dsonar.token={TOKEN_SONAR}
 
 ---
 
+## 🧩 Tecnologias Utilizadas
+
+- **Spring Boot** → Framework Back-End
+- **Java** → Linguagem de programação
+- **Maven** → Build
+- **Docker** → Containers e virtualização
+- **Docker Hub** → Repositório de imagens Docker
+- **Redis** → Cache
+- **OpenSearch e Graylog** → Logs da Aplicação
+- **Swagger** → Documentação da API
+- **SonarQube** → Qualidade
+- **Github Actions** → CI/CD automatizado
+- **.bat** → Scripts para automatizar processos no Windows
+
+---
+
+## ✅ Qualidade (SonarQube)
+
+> Este projeto tem qualidade analisada pelo SonarQube Cloud. Verifique nos badges!
+
+[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-dark.svg)](https://sonarcloud.io/summary/new_code?id=vekgateway)
+
+---
+
 ## 📦 Esteira CI/CD Automatizada com Github Actions
 
-> A esteira CI/CD deste projeto é automatizada via Github Actions. A cada tag criada ou execução manual na branch main, a esteira é disparada.
-
-###  Steps da esteira:
-
-1️⃣ Verificação de **Vulnerabilidades** com o **Trivy** (Security)
-
-2️⃣ Análise do **Sonar Cloud** (Quality)
-
-3️⃣ Deploy da imagem do container no **DockerHub e Github Packages** (Deploy)
-
-4️⃣ Deploy do Maven Artifact no **Github Packages** (Deploy)
-
-5️⃣ Deploy da Release no **Github** (Release)
+> A esteira CI/CD deste projeto é automatizada via Github Actions. A cada tag criada a esteira é disparada.
 
 ### Para executar a Esteira pelo trigger:
 ```bash
@@ -269,29 +197,11 @@ git push origin <version>
 
 ---
 
-## 💡 Observações Importantes
-
-* Este projeto cumpre com o **Módulo 2 da Atividade**
-* Para este módulo, existem duas aplicações: **esta aplicação** e a aplicação de [Login](https://github.com/VekRest/vekrest-veksecurity-modulo2.1)
-
----
-
 ## Postman Collection
 
 > Link para download da coleção Postman utilizada nos testes da API: [Postman Collection VekRest](https://www.postman.com/aviation-pilot-88658184/workspace/my-workspace/folder/33703402-dad9baf5-9c1b-4010-a4c7-7ace385191fd?action=share&source=copy-link&creator=33703402&ctx=documentation)
 
 > Alternativamente, você pode utilizar o Swagger UI para testar a API:
 [Swagger UI VekRest VekGateway Módulo 2](http://localhost:8080/swagger-ui/index.html) (rodando localmente)
-
----
-
-## ✍️ Autor
-
-<div align="center">
-
-| [<img src="https://avatars.githubusercontent.com/u/98980071" width=115><br><sub>Victor Cardoso</sub>](https://github.com/vek03)
-| :---: |
-
-</div>
 
 ---
